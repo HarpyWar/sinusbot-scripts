@@ -1,6 +1,6 @@
 registerPlugin({
     name: 'Virtual Default Channels',
-    version: '0.1',
+    version: '0.2',
 	backends: ['ts3'],
     description: 'Setup different default channels for different server groups. Add i_client_move_power and b_client_ignore_antiflood privileges for the bot so it can move users.',
     author: 'HarpyWar <harpywar@gmail.com>',
@@ -38,6 +38,12 @@ registerPlugin({
 				'no'
 			]
         },
+		{
+			name: 'delay',
+			title: 'Delay in seconds before move a user',
+			type: 'number',
+			placeholder: 0
+		},
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		{
@@ -60,7 +66,10 @@ registerPlugin({
 	config.channels = typeof(config.channels) !== 'undefined'
 		? configArrayToArray(config.channels, "channel")
 		: [];
-		
+
+	if ( !config.delay )
+		config.delay = 0;
+	config.delay = parseInt(config.delay) * 1000;
 		
 	if (config.groups.length != config.channels.length) {
 		logError('Not equal amount of groups and channels! Exiting.');
@@ -141,7 +150,10 @@ registerPlugin({
 		}
 		if (moveChannelId) {
 			var moveChannel = getChannelById(moveChannelId);
-			e.client.moveTo(moveChannel);
+			// move with a delay
+			setTimeout(function(){
+				e.client.moveTo(moveChannel);
+			}, config.delay);
 		}
 		logDebug('Move channel ' + moveChannelId);
     });
