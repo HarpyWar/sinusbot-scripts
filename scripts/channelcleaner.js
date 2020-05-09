@@ -1,6 +1,6 @@
 registerPlugin({
     name: 'Channel Cleaner',
-    version: '0.12',
+    version: '0.13',
 	backends: ['ts3'],
     description: 'Automatically removes inactive channels',
     author: 'HarpyWar <harpywar@gmail.com>',
@@ -58,6 +58,25 @@ registerPlugin({
 		{
 			name: 'parentChannels',
 			title: 'Parent Channel',
+			type: 'array',
+			vars: [
+				{
+					name: 'channel',
+					title: 'channel',
+					type: 'channel'
+				}
+			],
+			conditions: [
+				{
+					field: 'listenType',
+					value: 2
+				}
+			]
+		},
+		// child channels to ignore
+		{
+			name: 'ignoreChildChannels',
+			title: 'Ignore channels',
 			type: 'array',
 			vars: [
 				{
@@ -200,6 +219,9 @@ registerPlugin({
 	config.parentChannels = typeof(config.parentChannels) !== 'undefined'
 		? config.parentChannels
 		: [];
+	config.ignoreChildChannels = typeof(config.ignoreChildChannels) !== 'undefined'
+		? config.ignoreChildChannels
+		: [];
 	if ( !config.timeTillDeletion ) {
 		config.timeTillDeletion = 20160; // 14 days
 	}
@@ -229,6 +251,8 @@ registerPlugin({
 	logDebug(config.chooseChannels);
 	logDebug("parentChannels:");
 	logDebug(config.parentChannels);
+	logDebug("ignoreChildChannels:");
+	logDebug(config.ignoreChildChannels);
 	
 	logDebug("timeTillDeletion: " + config.timeTillDeletion);
 	logDebug("enableDescription: " + config.enableDescription);
@@ -465,6 +489,11 @@ registerPlugin({
 					break;
 					
 				case "2":
+					// do not handle channel in ignoreChildChannels
+					if ( configChannelIncludes(config.ignoreChildChannels, c.id()) ) {
+						logChannelInfo("ignore channel", c.id(), c.name());
+						continue;
+					}
 					// do not handle channel which has not parent, or if parent is not in parentChannels
 					if ( c.parent() == null || !configChannelIncludes(config.parentChannels, c.parent().id()) ) {
 						logChannelInfo("ignore channel", c.id(), c.name());
