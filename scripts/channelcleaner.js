@@ -3,7 +3,7 @@ registerPlugin({
     version: '0.13',
 	backends: ['ts3'],
     description: 'Automatically removes inactive channels',
-    author: 'HarpyWar <harpywar@gmail.com>',
+    author: 'HarpyWar <harpywar@gmail.com> for CleanVoice <support@cleanvoice.ru>',
     vars: [
 		// 0 = all channels | 1 = specific channels | 2 = all channels with the same parentchannel
 		{
