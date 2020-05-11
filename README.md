@@ -16,3 +16,11 @@ Setup different default channels for different server groups.
 https://forum.sinusbot.com/resources/virtual-default-channels.455/
 
 
+# User Icons
+
+***usericons.js***
+
+Allow users to set icons on themselves.
+
+https://forum.sinusbot.com/resources/user-icons.496/
+
