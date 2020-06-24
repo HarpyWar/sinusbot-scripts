@@ -1,6 +1,7 @@
 registerPlugin({
     name: 'Channel Cleaner',
     version: '0.13',
+    engine: '>= 1.0.0',
 	backends: ['ts3'],
     description: 'Automatically removes inactive channels',
     author: 'HarpyWar <harpywar@gmail.com> for CleanVoice <support@cleanvoice.ru>',
@@ -11,8 +12,8 @@ registerPlugin({
 			title: 'Channels to check',
 			type: 'select',
 			options: [
-				"All Channels",
-				"Specific Channels",
+				"All channels",
+				"Specific channels",
 				"All subchannels with the same parentchannel"
 			]
 		},

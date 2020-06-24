@@ -1,6 +1,7 @@
 registerPlugin({
     name: 'Virtual Default Channels',
     version: '0.2',
+    engine: '>= 1.0.0',
 	backends: ['ts3'],
     description: 'Setup different default channels for different server groups. Add i_client_move_power and b_client_ignore_antiflood privileges for the bot so it can move users.',
     author: 'HarpyWar <harpywar@gmail.com> for CleanVoice <support@cleanvoice.ru>',
