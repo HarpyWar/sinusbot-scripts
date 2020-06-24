@@ -1,6 +1,7 @@
 registerPlugin({
     name: 'User !icons',
-    version: '0.1',
+    version: '0.2',
+    engine: '>= 1.0.0',
 	backends: ['ts3'],
     description: 'Allow users to set icons on themselves',
     author: 'HarpyWar <harpywar@gmail.com> for CleanVoice <support@cleanvoice.ru>',
@@ -336,7 +337,10 @@ registerPlugin({
 		})
 		return hasGroup;
 	}
-	
+	function userHasGroup(groups, findGroupId) {
+		// same logic
+		return serverHasGroup(groups, findGroupId);
+	}
 	
 	function userIconsCount(userGroups) {
 		var serverGroups = getServerGroups();
